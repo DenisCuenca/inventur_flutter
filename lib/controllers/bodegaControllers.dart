@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../models/bodega.dart';
 
 class BodegaController {
-  Bodega bodega;
+  final Bodega bodega;
 
   BodegaController({required this.bodega});
 

@@ -48,39 +48,15 @@ class Bodega {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<List> retornarListaProducto() async {
-    // return BodegaDAO().retornarListaProducto(this.idBodega);
-
     return BodegaDAO().retornarListaProducto(this.idBodega);
-    // FirebaseFirestore firestore = FirebaseFirestore.instance;
-    // CollectionReference productsCollection = firestore.collection('insumos');
-    // List products = [];
-    // QuerySnapshot querySnapshot = await productsCollection
-    //     .where('bodega', isEqualTo: this.idBodega)
-    //     .get();
+  }
 
-    // querySnapshot.docs.forEach((element) {
-    //   final Map<String, dynamic> data = element.data() as Map<String, dynamic>;
-    //   print(element.data());
-    //   final prod = {
-    //     "name": data["name"],
-    //     "bodega": data["bodega"],
-    //     "cantidad": data["cantidad"],
-    //     "codigo": data["codigo"],
-    //     "descripcion": data["descripcion"],
-    //     "estado": data["estado"],
-    //     "fechaCaducidad": data["fechaCaducidad"],
-    //     "fechaElaboracion": data["fechaElaboracion"],
-    //     "idCategoria": data["id_categoria"],
-    //     "id_proveedor": data["id_proveedor"],
-    //     "precio": data["precio"],
-    //     "registroSanitario": data["registroSanitario"],
-    //     "tipoInsumo": data["tipoInsumo"],
-    //     "uid": element.id,
-    //   };
+  Future<void> actualizaStock(String uid, int capacidad) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    //   products.add(prod);
-    // });
-    // // print(products);
-    // return products;
+    await firestore
+        .collection("bodegas")
+        .doc(uid)
+        .update({"capacidadAlmacenamiento": capacidad});
   }
 }
