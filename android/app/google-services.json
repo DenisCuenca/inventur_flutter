@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "5879085474",
+    "project_id": "inventurv2",
+    "storage_bucket": "inventurv2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:5879085474:android:6468c9c0b6838638509afb",
+        "android_client_info": {
+          "package_name": "com.example.inventur_v2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJVZzDQ8wrpVi64-TZk1QoD5MJarOaqiM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
