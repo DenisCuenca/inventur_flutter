@@ -4,6 +4,7 @@ import 'package:inventur_v2/models/bodega.dart';
 import 'package:inventur_v2/models/bodeguero.dart';
 import 'package:inventur_v2/models/distrito.dart';
 import 'package:intl/intl.dart';
+import 'package:excel/excel.dart';
 
 class ListaProductos extends StatefulWidget {
   ListaProductos({super.key});
@@ -13,26 +14,28 @@ class ListaProductos extends StatefulWidget {
 }
 
 class ListaProductosState extends State<ListaProductos> {
+  int numData = 0;
+
+  Bodega bodegueroBodega = Bodega(
+      bodeguero: Bodeguero(
+          apellido: "",
+          cedula: "",
+          correo: "",
+          edad: 2,
+          nombre: "",
+          idBodeguero: "2"),
+      capacidadAlmacenamiento: 3,
+      distrito: Distrito(
+        id: "id",
+        nombre: "nombre",
+        poblacion: "poblacion",
+        ubicacion: " ubicacion",
+      ),
+      idBodega: "bod_02",
+      nombre: "",
+      ubicacion: "");
   @override
   Widget build(BuildContext context) {
-    Bodega bodegueroBodega = Bodega(
-        bodeguero: Bodeguero(
-            apellido: "",
-            cedula: "",
-            correo: "",
-            edad: 2,
-            nombre: "",
-            idBodeguero: "2"),
-        capacidadAlmacenamiento: 3,
-        distrito: Distrito(
-          id: "id",
-          nombre: "nombre",
-          poblacion: "poblacion",
-          ubicacion: " ubicacion",
-        ),
-        idBodega: "bod_02",
-        nombre: "",
-        ubicacion: "");
     return Scaffold(
       appBar: AppBar(
         title: const Text("Gestionar Bodega"),
@@ -40,12 +43,11 @@ class ListaProductosState extends State<ListaProductos> {
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
         child: FutureBuilder(
-          // future: retornarListaProducto(),
           future: BodegaController(bodega: bodegueroBodega)
               .consultarListaProductos(),
-
           builder: ((context, snapshot) {
             if (snapshot.hasData) {
+              numData = snapshot.data!.length;
               return ListView.builder(
                 itemCount: snapshot.data?.length,
                 itemBuilder: (context, index) {
@@ -100,20 +102,6 @@ class ListaProductosState extends State<ListaProductos> {
                       isThreeLine: true,
                     ),
                   );
-                  // return ListTile(
-
-                  //   iconColor: Colors.orange,
-                  //   tileColor: Color.fromARGB(82, 235, 235, 235),
-                  //   leading: Icon(Icons.edit_document),
-                  //   title: Text(snapshot.data![index]['name']),
-                  //   onTap: () async {
-                  //     await Navigator.pushNamed(context, "/edit", arguments: {
-                  //       'name': snapshot.data?[index]['name'],
-                  //       'uid': snapshot.data?[index]['uid'],
-                  //     });
-                  //     setState(() {});
-                  //   },
-                  // );
                 },
               );
             } else {
@@ -124,6 +112,55 @@ class ListaProductosState extends State<ListaProductos> {
           }),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: exportToExcel,
+        child: Icon(Icons.file_download),
+      ),
     );
+  }
+
+  Future<void> exportToExcel() async {
+    final excel = Excel.createExcel();
+    final Sheet sheet = excel[excel.getDefaultSheet()!];
+    List<dynamic> listaProductos =
+        await BodegaController(bodega: bodegueroBodega)
+            .consultarListaProductos();
+
+    List<CellValue?> headers = [
+      TextCellValue("Id"),
+      TextCellValue("Nombre"),
+      TextCellValue("Cantidad"),
+      TextCellValue("Bodega"),
+      // TextCellValue("Código"),
+      TextCellValue("Estado"),
+      TextCellValue("Fecha Caducidad"),
+      TextCellValue("Fecha Elaboración"),
+      TextCellValue("Id Categoria"),
+      TextCellValue("Id proveedor"),
+      TextCellValue("precio"),
+      TextCellValue("Reguistro Sanitario"),
+      TextCellValue("Tipo Insumo"),
+    ]; // Ajusta los encabezados según tu estructura de datos
+    sheet.appendRow(headers);
+
+    for (var producto in listaProductos) {
+      List<CellValue> rowData = [
+        TextCellValue(producto["uid"]),
+        TextCellValue(producto["name"]),
+        TextCellValue(producto["cantidad"].toString()),
+        TextCellValue(producto["descripcion"]),
+        TextCellValue(producto["estado"]),
+        TextCellValue(producto["fechaCaducidad"]),
+        TextCellValue(producto["fechaElaboracion"]),
+        TextCellValue(producto["idCategoria"]),
+        TextCellValue(producto["id_proveedor"]),
+        TextCellValue(producto["precio"].toString()),
+        TextCellValue(producto["registroSanitario"]),
+        TextCellValue(producto["tipoInsumo"]),
+      ];
+      sheet.appendRow(rowData);
+    }
+
+    excel.save(fileName: "reporte.xlsx");
   }
 }
