@@ -122,31 +122,60 @@ class DetalleProductoState extends State<DetalleProducto> {
                       //   "tipoInsumo": tipoInsumoController.text,
                       // };
 
-                      InsumoMedico ins = InsumoMedico(
-                          registroSanitario: registroSanitarioController.text,
-                          tipoInsumoM: tipoInsumoController.text,
-                          idProducto: idProveedorController.text,
-                          idCategoria: idCategoriaController.text,
-                          codigo: idCategoriaController.text,
-                          nombre: nameController.text,
-                          fechaElaboracion: fechaElaboracionController.text,
-                          fechaCaducidad: fechaCaducidadController.text,
-                          descripcion: descripcionController.text,
-                          precio: double.parse(precioController.text),
-                          cantidad: int.parse(cantidadController.text),
-                          bodega: bodegaController.text,
-                          proveedor: idProveedorController.text,
-                          estado: estadoController.text);
+                      if (idCategoriaController.text == "Insumo Medico") {
+                        InsumoMedico ins = InsumoMedico(
+                            registroSanitario: registroSanitarioController.text,
+                            tipoInsumoM: tipoInsumoController.text,
+                            idProducto: idProveedorController.text,
+                            idCategoria: idCategoriaController.text,
+                            codigo: idCategoriaController.text,
+                            nombre: nameController.text,
+                            fechaElaboracion: fechaElaboracionController.text,
+                            fechaCaducidad: fechaCaducidadController.text,
+                            descripcion: descripcionController.text,
+                            precio: double.parse(precioController.text),
+                            cantidad: int.parse(cantidadController.text),
+                            bodega: bodegaController.text,
+                            proveedor: idProveedorController.text,
+                            estado: estadoController.text);
 
-                      ProductoController pc = ProductoController(
-                          insumoMedico: ins, uid: arguments["uid"]);
+                        ProductoController pc = ProductoController(
+                            insumoMedico: ins, uid: arguments["uid"]);
 
-                      await pc.guardarDetalleProducto().then((_) {
-                        // await ins.actualizarDetalle(arguments["uid"])
-                        // await ins.actualizarDetalle(arguments["uid"]).then((_) {
-                        // Navigator.pop(context);
-                        _mostrarAlerta(context);
-                      });
+                        await pc.guardarDetalleProducto().then((_) {
+                          // await ins.actualizarDetalle(arguments["uid"])
+                          // await ins.actualizarDetalle(arguments["uid"]).then((_) {
+                          // Navigator.pop(context);
+                          _mostrarAlerta(context);
+                        });
+                      }
+                      if (idCategoriaController.text == "medicamento") {
+                        InsumoMedico ins = InsumoMedico(
+                            registroSanitario: registroSanitarioController.text,
+                            tipoInsumoM: tipoInsumoController.text,
+                            idProducto: idProveedorController.text,
+                            idCategoria: idCategoriaController.text,
+                            codigo: idCategoriaController.text,
+                            nombre: nameController.text,
+                            fechaElaboracion: fechaElaboracionController.text,
+                            fechaCaducidad: fechaCaducidadController.text,
+                            descripcion: descripcionController.text,
+                            precio: double.parse(precioController.text),
+                            cantidad: int.parse(cantidadController.text),
+                            bodega: bodegaController.text,
+                            proveedor: idProveedorController.text,
+                            estado: estadoController.text);
+
+                        ProductoController pc = ProductoController(
+                            insumoMedico: ins, uid: arguments["uid"]);
+
+                        await pc.guardarDetalleProducto().then((_) {
+                          // await ins.actualizarDetalle(arguments["uid"])
+                          // await ins.actualizarDetalle(arguments["uid"]).then((_) {
+                          // Navigator.pop(context);
+                          _mostrarAlerta(context);
+                        });
+                      }
 
                       // await updateProduct(arguments["uid"], obj).then((_) {
                       //   Navigator.pop(context);

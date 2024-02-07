@@ -6,11 +6,15 @@ class BodegaDAO {
 
   Future<List> retornarListaProducto(idBodega) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
-    CollectionReference productsCollection = firestore.collection('insumos');
+    CollectionReference insumosCollection = firestore.collection('insumos');
 
-    QuerySnapshot querySnapshot =
-        await productsCollection.where('bodega', isEqualTo: idBodega).get();
+    QuerySnapshot querySnapshotinsumos =
+        await insumosCollection.where('bodega', isEqualTo: idBodega).get();
 
-    return BodegaDTO().getListaProductos(querySnapshot.docs);
+    List<QueryDocumentSnapshot> productsData = [
+      ...querySnapshotinsumos.docs,
+    ];
+
+    return BodegaDTO().getListaProductos(productsData);
   }
 }
