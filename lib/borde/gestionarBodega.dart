@@ -161,5 +161,26 @@ class ListaProductosState extends State<ListaProductos> {
     }
 
     excel.save(fileName: "reporte.xlsx");
+    _mostrarAlerta(context);
+  }
+
+  void _mostrarAlerta(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Reporte Generado'),
+          // content: Text('El producto ha sido editado con exito'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Cierra la alerta
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

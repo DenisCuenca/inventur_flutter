@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:inventur_v2/borde/gestionarBodega.dart';
 import 'package:inventur_v2/controllers/productoController.dart';
 import 'package:inventur_v2/models/insumoMedico.dart';
 import '../models/bodega.dart';
@@ -143,7 +144,8 @@ class DetalleProductoState extends State<DetalleProducto> {
                       await pc.guardarDetalleProducto().then((_) {
                         // await ins.actualizarDetalle(arguments["uid"])
                         // await ins.actualizarDetalle(arguments["uid"]).then((_) {
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
+                        _mostrarAlerta(context);
                       });
 
                       // await updateProduct(arguments["uid"], obj).then((_) {
@@ -156,6 +158,30 @@ class DetalleProductoState extends State<DetalleProducto> {
           )
         ]),
       ),
+    );
+  }
+
+  void _mostrarAlerta(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Cambios Guardados'),
+          content: Text('El producto ha sido editado con exito'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ListaProductos(),
+                    )); // Cierra la alerta
+              },
+              child: Text('Cerrar'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
