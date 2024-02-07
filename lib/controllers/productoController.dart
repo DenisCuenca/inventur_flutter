@@ -21,7 +21,7 @@ class ProductoController {
       nombre: "IESS Loja",
       ubicacion: "Loja",
       capacidadAlmacenamiento: 50000,
-      bodeguero: Bodeguero(
+      responsableBodega: Bodeguero(
           apellido: "apellido",
           nombre: "nombre",
           idBodeguero: "idBodeguero",

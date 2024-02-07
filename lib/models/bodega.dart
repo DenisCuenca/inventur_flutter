@@ -9,7 +9,7 @@ class Bodega {
   final String nombre;
   final String ubicacion;
   int capacidadAlmacenamiento;
-  final Bodeguero bodeguero;
+  final Bodeguero responsableBodega;
   final Distrito distrito;
 
   Bodega({
@@ -17,7 +17,7 @@ class Bodega {
     required this.nombre,
     required this.ubicacion,
     required this.capacidadAlmacenamiento,
-    required this.bodeguero,
+    required this.responsableBodega,
     required this.distrito,
   });
 
@@ -27,7 +27,7 @@ class Bodega {
       nombre: json['nombre'] ?? '',
       ubicacion: json['ubicacion'] ?? '',
       capacidadAlmacenamiento: json['capacidadAlmacenamiento'] ?? 0,
-      bodeguero: Bodeguero.fromJson(json['bodeguero'] ??
+      responsableBodega: Bodeguero.fromJson(json['bodeguero'] ??
           {}), // Asume que tienes un método fromJson en la clase Bodeguero
       distrito: Distrito.fromJson(json['distrito'] ??
           {}), // Asume que tienes un método fromJson en la clase Bodeguero
@@ -40,7 +40,7 @@ class Bodega {
       'nombre': nombre,
       'ubicacion': ubicacion,
       'capacidadAlmacenamiento': capacidadAlmacenamiento,
-      'bodeguero': bodeguero
+      'bodeguero': responsableBodega
           .toJson(), // Asume que tienes un método toJson en la clase Bodeguero
     };
   }

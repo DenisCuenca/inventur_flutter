@@ -36,7 +36,7 @@ class Distrito {
       List<Bodega> bodegas = querySnapshot.docs.map((doc) {
         return Bodega(
           nombre: doc["nombre"] ?? "",
-          bodeguero: Bodeguero.fromJson(doc["idProducto"] ?? {}),
+          responsableBodega: Bodeguero.fromJson(doc["idProducto"] ?? {}),
           capacidadAlmacenamiento: doc["capacidadAlmacenamiento"] ?? "",
           distrito: Distrito.fromJson(doc["distrito"] ?? ""),
           idBodega: doc["idBodega"] ?? "",

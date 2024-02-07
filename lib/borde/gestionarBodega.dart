@@ -17,7 +17,7 @@ class ListaProductosState extends State<ListaProductos> {
   int numData = 0;
 
   Bodega bodegueroBodega = Bodega(
-      bodeguero: Bodeguero(
+      responsableBodega: Bodeguero(
           apellido: "",
           cedula: "",
           correo: "",
@@ -53,7 +53,7 @@ class ListaProductosState extends State<ListaProductos> {
                 itemBuilder: (context, index) {
                   return Card(
                     child: ListTile(
-                      leading: Icon(
+                      leading: const Icon(
                         Icons.medication_liquid_sharp,
                         size: 45,
                       ),
@@ -98,7 +98,7 @@ class ListaProductosState extends State<ListaProductos> {
                                 });
                             setState(() {});
                           },
-                          icon: Icon(Icons.edit_outlined)),
+                          icon: const Icon(Icons.edit_outlined)),
                       isThreeLine: true,
                     ),
                   );
@@ -114,7 +114,7 @@ class ListaProductosState extends State<ListaProductos> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: exportToExcel,
-        child: Icon(Icons.file_download),
+        child: const Icon(Icons.file_copy_outlined),
       ),
     );
   }
@@ -127,19 +127,18 @@ class ListaProductosState extends State<ListaProductos> {
             .consultarListaProductos();
 
     List<CellValue?> headers = [
-      TextCellValue("Id"),
-      TextCellValue("Nombre"),
-      TextCellValue("Cantidad"),
-      TextCellValue("Bodega"),
-      // TextCellValue("Código"),
-      TextCellValue("Estado"),
-      TextCellValue("Fecha Caducidad"),
-      TextCellValue("Fecha Elaboración"),
-      TextCellValue("Id Categoria"),
-      TextCellValue("Id proveedor"),
-      TextCellValue("precio"),
-      TextCellValue("Reguistro Sanitario"),
-      TextCellValue("Tipo Insumo"),
+      const TextCellValue("Id"),
+      const TextCellValue("Nombre"),
+      const TextCellValue("Cantidad"),
+      const TextCellValue("Bodega"),
+      const TextCellValue("Estado"),
+      const TextCellValue("Fecha Caducidad"),
+      const TextCellValue("Fecha Elaboración"),
+      const TextCellValue("Id Categoria"),
+      const TextCellValue("Id proveedor"),
+      const TextCellValue("precio"),
+      const TextCellValue("Reguistro Sanitario"),
+      const TextCellValue("Tipo Insumo"),
     ]; // Ajusta los encabezados según tu estructura de datos
     sheet.appendRow(headers);
 
